@@ -45,6 +45,17 @@
         "style": "scss",
         "linter": "eslint"
       }
+    },
+    "@nx/react": {
+      "library": {}
     }
-  }
+  },
+  "targetDefaults": {
+    "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    }
+  },
+  "nxCloudAccessToken": "ZGVkNzEyZTctYTc0ZS00Yzg3LWFhOGQtYWRiZjFlZGE4OWY4fHJlYWQtd3JpdGU="
 }

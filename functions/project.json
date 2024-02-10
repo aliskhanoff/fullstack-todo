@@ -1,0 +1,19 @@
+{
+  "name": "functions",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "functions/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/functions",
+        "main": "functions/src/index.ts",
+        "tsConfig": "functions/tsconfig.lib.json",
+        "assets": ["functions/*.md"]
+      }
+    }
+  },
+  "tags": []
+}

@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@fullstack-todo/components": ["components/src/index.ts"],
+      "@fullstack-todo/components/server": ["components/src/server.ts"],
+      "@fullstack-todo/functions": ["functions/src/index.ts"],
+      "@fullstack-todo/types": ["types/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

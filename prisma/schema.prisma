@@ -1,0 +1,73 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id        Int       @id @default(sequence())
+  uid       String    @unique @default(uuid())
+  email     String    @unique
+  password  String?
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  workspaces  Workspaces[]
+  todos       Todos[]
+}
+
+model Workspaces {
+  id        Int       @id @default(sequence())
+  userId    Int
+  uid       String    @unique @default(uuid())
+  name      String
+  user      Users     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  boards    Boards[]
+  state      ObjectState   @default(active)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model Boards {
+  id            Int           @id @default(sequence())
+  uid           String        @default(uuid()) @unique
+  workspace     Workspaces    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspaceId   Int
+  name          String
+  todos Todos[]
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @default(now())
+  state         ObjectState    @default(active)
+}
+
+model Todos {
+  id            Int           @id @default(sequence())
+  uid           String        @default(uuid()) @unique
+  boardId       Int
+  name          String         
+  content       String        
+  config        Json
+  board         Boards        @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  state         TodoState     @default(active)
+  createdBy     Int            
+  user          Users         @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @default(now())
+}
+
+//states
+enum ObjectState {
+  active
+  archived
+  deleted
+}
+
+enum TodoState {
+  active
+  completed
+  expired2
+  archived
+}
